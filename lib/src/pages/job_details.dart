@@ -1,0 +1,128 @@
+import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter/material.dart';
+import 'package:work_anywhere_flutter/src/constants/colors.dart';
+import 'package:work_anywhere_flutter/src/models/job.dart';
+import 'package:work_anywhere_flutter/src/widgets/job_detail_card.dart';
+import 'package:flutter/services.dart';
+import 'package:clipboard_manager/clipboard_manager.dart';
+
+class JobDetails extends StatefulWidget {
+  final Job job;
+
+  const JobDetails({Key key, this.job}) : super(key: key);
+
+  @override
+  _JobDetailsState createState() => _JobDetailsState();
+}
+
+class _JobDetailsState extends State<JobDetails> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      key: _scaffoldKey,
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey,
+              blurRadius: 1.0,
+            ),
+          ],
+        ),
+        padding: EdgeInsets.all(12.0),
+        height: 80,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            InkWell(
+              onTap: () {
+                _launchURL(widget.job.applyurl);
+              },
+              child: Text(
+                'Apply for job',
+                style: TextStyle(
+                  color: kPrimaryColor,
+                  fontSize: 16,
+                ),
+              ),
+            ),
+            InkWell(
+              onTap: () {
+                ClipboardManager.copyToClipBoard("your text to copy");
+                final snackBar = SnackBar(
+                  content: Text('Copied to Clipboard'),
+                  action: SnackBarAction(
+                    label: 'Undo',
+                    onPressed: () {},
+                  ),
+                );
+                _scaffoldKey.currentState.showSnackBar(snackBar);
+              },
+              child: Text(
+                'Copy Link for job',
+                style: TextStyle(
+                  color: kPrimaryColor,
+                  fontSize: 16,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+      appBar: AppBar(
+        elevation: 0,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            Text('Back'),
+          ],
+        ),
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          Container(
+            padding: EdgeInsets.all(16.0),
+            color: kPrimaryColor,
+            child: Text(
+              widget.job.position,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 24.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          Expanded(
+            child: ListView(
+              children: <Widget>[
+                JobDetailCard(
+                  job: widget.job,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Text(
+                    widget.job.description,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  _launchURL(url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } 
+  }
+}
