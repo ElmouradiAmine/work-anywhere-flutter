@@ -63,7 +63,7 @@ class JobDetailCard extends StatelessWidget {
               
                 Container(
                   decoration: BoxDecoration(
-                      color: isDark? Colors.white : kPrimaryColor,
+                      color: kPrimaryColor,
                       borderRadius: BorderRadius.circular(5.0)),
                   padding: EdgeInsets.symmetric(
                       vertical: 4.0, horizontal: 6.0),
@@ -73,7 +73,6 @@ class JobDetailCard extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context).textTheme.headline3.copyWith(
                       fontSize:16,
-                      color: isDark ? Colors.black : null,
                     ),
                   ),
                 )

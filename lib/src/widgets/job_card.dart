@@ -16,16 +16,18 @@ class JobCard extends StatelessWidget {
     int nbDays = calculateDays(dateadded);
     var brightness = MediaQuery.of(context).platformBrightness;
     bool isDark = brightness == Brightness.dark;
-    String postedString = nbDays > 30 ? 'posted longer than 30 days ago': 'posted $nbDays day${nbDays > 1 ?  's' : ''} ago';
+    String postedString = nbDays > 30
+        ? 'posted longer than 30 days ago'
+        : 'posted $nbDays day${nbDays > 1 ? 's' : ''} ago';
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
       decoration: BoxDecoration(
-        boxShadow: isDark? null :[
-          BoxShadow(
-            color: Colors.grey,
-            blurRadius: 5.0,
-          ),
-        ],
+        boxShadow:  [
+                BoxShadow(
+                  color: Colors.black,
+                  blurRadius: 5.0,
+                ),
+              ],
         borderRadius: BorderRadius.circular(10.0),
       ),
       child: Material(
@@ -33,7 +35,13 @@ class JobCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(5.0),
         child: InkWell(
           onTap: () {
-            Navigator.of(context).push(MaterialPageRoute(builder: (context)=> JobDetails(job:job)));
+            FocusScopeNode currentFocus = FocusScope.of(context);
+
+            if (!currentFocus.hasPrimaryFocus) {
+              currentFocus.unfocus();
+            }
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => JobDetails(job: job)));
           },
           borderRadius: BorderRadius.circular(5.0),
           child: Container(
@@ -74,15 +82,15 @@ class JobCard extends StatelessWidget {
                         softWrap: false,
                         overflow: TextOverflow.ellipsis,
                         style: Theme.of(context).textTheme.headline2.apply(
-                          color: isDark ? Colors.white : null,
-                        ),
+                              color: isDark ? Colors.white : null,
+                            ),
                       ),
                       SizedBox(
                         height: 5.0,
                       ),
                       Container(
                         decoration: BoxDecoration(
-                            color: isDark ? Colors.white : kPrimaryColor,
+                            color:  kPrimaryColor,
                             borderRadius: BorderRadius.circular(5.0)),
                         padding: EdgeInsets.symmetric(
                             vertical: 4.0, horizontal: 6.0),
@@ -90,9 +98,7 @@ class JobCard extends StatelessWidget {
                           job.companyname,
                           softWrap: false,
                           overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context).textTheme.headline3.apply(
-                            color: isDark ? Colors.black : null,
-                          ),
+                          style: Theme.of(context).textTheme.headline3
                         ),
                       )
                     ],
@@ -108,7 +114,7 @@ class JobCard extends StatelessWidget {
 
   int calculateDays(DateTime date) {
     DateTime now = new DateTime.now();
-    if(now.difference(date).inDays > 1) return now.difference(date).inDays;
+    if (now.difference(date).inDays > 1) return now.difference(date).inDays;
     return now.difference(date).inHours;
   }
 }
