@@ -45,11 +45,12 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         elevation: 5.0,
+        centerTitle: false,
         title: Text('Work Anywhere'),
         bottom: PreferredSize(
             child: SearchBar(controller: _controller),
             preferredSize: Size(200, 60)),
-      ),
+      ), 
       body: initialLoading
           ? Center(
               child: CircularProgressIndicator(),

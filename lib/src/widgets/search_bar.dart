@@ -34,7 +34,6 @@ class _SearchBarState extends State<SearchBar> {
           hintText: 'Search',
           hintStyle: TextStyle(
             color: Colors.white,
-            fontStyle: FontStyle.italic,
           ),
             prefixIcon: Icon(
               Icons.search,

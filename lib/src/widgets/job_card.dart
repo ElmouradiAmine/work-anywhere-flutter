@@ -14,7 +14,8 @@ class JobCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     DateTime dateadded = DateTime.parse(job.dateadded);
-
+    int nbDays = calculateDays(dateadded);
+    String postedString = nbDays > 30 ? 'posted longer than 30 days ago': 'posted $nbDays day${nbDays > 1 ?  's' : ''} ago';
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
       decoration: BoxDecoration(
@@ -62,7 +63,7 @@ class JobCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        'posted ${calculateDays(dateadded)} day ago',
+                        postedString,
                         style: Theme.of(context).textTheme.subtitle1,
                       ),
                       SizedBox(

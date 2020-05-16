@@ -4,10 +4,7 @@ import 'package:work_anywhere_flutter/src/pages/home_page.dart';
 import 'package:work_anywhere_flutter/src/resources/job_api.dart';
 
 void main() {
-  
   return runApp(App());
-  
-  
 }
 
 class App extends StatelessWidget {
@@ -19,7 +16,6 @@ class App extends StatelessWidget {
       darkTheme: darkTheme,
       theme: lightTheme,
       home: HomePage(),
-
     );
   }
 }
