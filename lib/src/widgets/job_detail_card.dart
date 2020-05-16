@@ -6,7 +6,6 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:work_anywhere_flutter/src/constants/colors.dart';
 import 'package:work_anywhere_flutter/src/constants/images.dart';
 import 'package:work_anywhere_flutter/src/models/job.dart';
-import 'package:work_anywhere_flutter/src/pages/job_details.dart';
 
 class JobDetailCard extends StatelessWidget {
   final Job job;
@@ -15,6 +14,8 @@ class JobDetailCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     DateTime dateadded = DateTime.parse(job.dateadded);
+     var brightness = MediaQuery.of(context).platformBrightness;
+    bool isDark = brightness == Brightness.dark;
 
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
@@ -62,7 +63,7 @@ class JobDetailCard extends StatelessWidget {
               
                 Container(
                   decoration: BoxDecoration(
-                      color: kPrimaryColor,
+                      color: isDark? Colors.white : kPrimaryColor,
                       borderRadius: BorderRadius.circular(5.0)),
                   padding: EdgeInsets.symmetric(
                       vertical: 4.0, horizontal: 6.0),
@@ -72,6 +73,7 @@ class JobDetailCard extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context).textTheme.headline3.copyWith(
                       fontSize:16,
+                      color: isDark ? Colors.black : null,
                     ),
                   ),
                 )
@@ -79,13 +81,17 @@ class JobDetailCard extends StatelessWidget {
             ),
           ),
           SizedBox(width: 5.0,),
-          InkWell(
-            onTap: (){
-              _launchURL("https://www.linkedin.com/search/results/companies/?keywords=hey");
-            },
-                      child: SizedBox(
-              width: 30,
-              child: Image.asset(kLinkedinImage)),
+          Material(
+            color: isDark? kPrimaryColorDarkTheme : Colors.white,
+                      child: InkWell(
+              
+              onTap: (){
+                _launchURL("https://www.linkedin.com/search/results/companies/?keywords=hey");
+              },
+                        child: SizedBox(
+                width: 30,
+                child: Image.asset(kLinkedinImage)),
+            ),
           ),
         ],
       ),

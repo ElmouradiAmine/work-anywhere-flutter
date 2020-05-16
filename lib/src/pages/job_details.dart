@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/material.dart';
 import 'package:work_anywhere_flutter/src/constants/colors.dart';
@@ -20,11 +22,14 @@ class _JobDetailsState extends State<JobDetails> {
 
   @override
   Widget build(BuildContext context) {
+     var brightness = MediaQuery.of(context).platformBrightness;
+    bool isDark = brightness == Brightness.dark;
     return Scaffold(
+      backgroundColor: isDark ? kPrimaryColorDarkTheme : Colors.white,
       key: _scaffoldKey,
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: isDark? greyColor : Colors.white,
           boxShadow: [
             BoxShadow(
               color: Colors.grey,
@@ -45,7 +50,7 @@ class _JobDetailsState extends State<JobDetails> {
               child: Text(
                 'Apply for job',
                 style: TextStyle(
-                  color: kPrimaryColor,
+                  color: isDark? Colors.white :kPrimaryColor,
                   fontSize: 16,
                 ),
               ),
@@ -65,7 +70,7 @@ class _JobDetailsState extends State<JobDetails> {
               child: Text(
                 'Copy Link for job',
                 style: TextStyle(
-                  color: kPrimaryColor,
+                  color: isDark? Colors.white : kPrimaryColor,
                   fontSize: 16,
                 ),
               ),
@@ -74,11 +79,12 @@ class _JobDetailsState extends State<JobDetails> {
         ),
       ),
       appBar: AppBar(
+        backgroundColor: isDark ? kPrimaryColorDarkTheme :kPrimaryColor,
         elevation: 0,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            Text('Back'),
+            Platform.isAndroid ? SizedBox(height: 0,):Text('Back') ,
           ],
         ),
       ),
@@ -87,7 +93,7 @@ class _JobDetailsState extends State<JobDetails> {
         children: <Widget>[
           Container(
             padding: EdgeInsets.all(16.0),
-            color: kPrimaryColor,
+            color: isDark ? kPrimaryColorDarkTheme :kPrimaryColor,
             child: Text(
               widget.job.position,
               style: TextStyle(
@@ -96,6 +102,10 @@ class _JobDetailsState extends State<JobDetails> {
                 fontWeight: FontWeight.bold,
               ),
             ),
+          ),
+          Divider(
+            height: 0,
+            color: Colors.white,
           ),
           Expanded(
             child: ListView(
@@ -109,6 +119,7 @@ class _JobDetailsState extends State<JobDetails> {
                     widget.job.description,
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
+                      color: isDark ? Colors.white : Colors.black,
                     ),
                   ),
                 ),

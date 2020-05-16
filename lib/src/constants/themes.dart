@@ -27,7 +27,7 @@ ThemeData lightTheme = ThemeData(
 
 ThemeData darkTheme = ThemeData(
   primaryColorDark: Colors.black,
-  primaryColor: Colors.black,
+  primaryColor: kPrimaryColorDarkTheme,
   backgroundColor: Colors.white30,
   textTheme: TextTheme(
     headline1: TextStyle(

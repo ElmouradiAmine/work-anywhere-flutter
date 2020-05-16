@@ -1,6 +1,5 @@
 import 'dart:core';
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:work_anywhere_flutter/src/constants/colors.dart';
 import 'package:work_anywhere_flutter/src/constants/images.dart';
@@ -15,12 +14,13 @@ class JobCard extends StatelessWidget {
   Widget build(BuildContext context) {
     DateTime dateadded = DateTime.parse(job.dateadded);
     int nbDays = calculateDays(dateadded);
+    var brightness = MediaQuery.of(context).platformBrightness;
+    bool isDark = brightness == Brightness.dark;
     String postedString = nbDays > 30 ? 'posted longer than 30 days ago': 'posted $nbDays day${nbDays > 1 ?  's' : ''} ago';
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
       decoration: BoxDecoration(
-        color: Colors.white,
-        boxShadow: [
+        boxShadow: isDark? null :[
           BoxShadow(
             color: Colors.grey,
             blurRadius: 5.0,
@@ -29,7 +29,7 @@ class JobCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(10.0),
       ),
       child: Material(
-        color: Colors.white,
+        color: isDark ? kPrimaryColorDarkTheme : Colors.white,
         borderRadius: BorderRadius.circular(5.0),
         child: InkWell(
           onTap: () {
@@ -73,14 +73,16 @@ class JobCard extends StatelessWidget {
                         job.position,
                         softWrap: false,
                         overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context).textTheme.headline2,
+                        style: Theme.of(context).textTheme.headline2.apply(
+                          color: isDark ? Colors.white : null,
+                        ),
                       ),
                       SizedBox(
                         height: 5.0,
                       ),
                       Container(
                         decoration: BoxDecoration(
-                            color: kPrimaryColor,
+                            color: isDark ? Colors.white : kPrimaryColor,
                             borderRadius: BorderRadius.circular(5.0)),
                         padding: EdgeInsets.symmetric(
                             vertical: 4.0, horizontal: 6.0),
@@ -88,7 +90,9 @@ class JobCard extends StatelessWidget {
                           job.companyname,
                           softWrap: false,
                           overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context).textTheme.headline3,
+                          style: Theme.of(context).textTheme.headline3.apply(
+                            color: isDark ? Colors.black : null,
+                          ),
                         ),
                       )
                     ],
