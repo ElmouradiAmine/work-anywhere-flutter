@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "244444652857",
+    "firebase_url": "https://workanywhereapp.firebaseio.com",
+    "project_id": "workanywhereapp",
+    "storage_bucket": "workanywhereapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:244444652857:android:884302368f73b8d12534e8",
+        "android_client_info": {
+          "package_name": "com.workanywhere.work_anywhere_flutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "244444652857-p5qk29oadrt8lhaslen7ivff17esv40b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLE6dRwsIw5fMVadTi1afvf53Ph2puJV0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "244444652857-p5qk29oadrt8lhaslen7ivff17esv40b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
